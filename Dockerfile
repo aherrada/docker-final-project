@@ -8,8 +8,6 @@ RUN apt-get -y install apache2 libapache2-mod-php5 php5-mysql php5-gd php-pear p
 RUN a2enmod php5
 RUN a2enmod rewrite
 
-ENTRYPOINT entrypoint.sh
-
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
@@ -24,9 +22,12 @@ COPY worldapi.conf /etc/apache2/sites-available/worldapi.conf
 
 RUN a2ensite worldapi.conf
 
-ADD src /opt/www/worldapi
-
 EXPOSE 80
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT /entrypoint.sh
 
 CMD /usr/sbin/apache2ctl -D FOREGROUND
 

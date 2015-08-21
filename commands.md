@@ -1,4 +1,4 @@
 
-docker run --name mysql -e MYSQL_DB_HOST: localhost -e MYSQL_DB_DATABASE: homestead -e MYSQL_DB_USERNAME: homestead -e MYSQL_DB_PASSWORD: secret -d mysql:5.6
+docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=homestead -e MYSQL_USER=homestead -e MYSQL_PASSWORD=secret mysql:5.6
 
-docker run --name web --link mysql:mysql -d -p 8081:80 -v /opt/docker/worldapi:/opt/www/worldapi php-link:1.0
+docker run --name web --link mysql:mysql -d -p 8081:80 -v /home/aherrada/Documents/docker\ trainning/docker-final-project/worldapi:/opt/www/worldapi web:1.0
